@@ -21,5 +21,50 @@ namespace MeldingAppX.Access
                 return JsonConvert.DeserializeObject<IEnumerable<Notice>>(json);
             }
         }
+
+        public async Task<Notice> GetNotice(int id)
+        {
+            using (var client = new HttpClient())
+            {
+                
+            }
+        }
+
+        public async Task<Notice> PostNotice(Notice notice)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:1101/");
+
+                var result = await client.PostAsJsonAsync("/api/Notice", notice);
+                var json = await result.Content.ReadAsStringAsync();
+
+                return JsonConvert.DeserializeObject<Notice>(json);
+
+            }
+        }
+
+        public async Task<Notice> DeleteNotice(int id)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:1101/");
+
+                var result = await client.DeleteAsync(String.Format("/api/Notice/{0}", id));
+                var json = await result.Content.ReadAsStringAsync();
+
+                return JsonConvert.DeserializeObject<Notice>(json);
+            }
+        }
+
+        public async Task PutNotice(int id, Notice notice)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:1101/");
+
+                await client.PutAsJsonAsync(String.Format("api/Notice/{0}"), notice);
+            }
+        }
     }
 }
