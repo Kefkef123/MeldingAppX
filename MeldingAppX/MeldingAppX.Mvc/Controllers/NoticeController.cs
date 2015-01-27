@@ -10,11 +10,7 @@ namespace MeldingAppX.Mvc.Controllers
     {
         public async Task<ActionResult> Index()
         {
-            var proxy = new NoticeProxy();
-
-            var notices = await proxy.GetNotice();
-
-            return View(notices);
+            return View(await _proxy.GetNotice());
         }
 
         public ActionResult Create()
@@ -26,6 +22,24 @@ namespace MeldingAppX.Mvc.Controllers
             };
 
             return View(form);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Create(NoticeForm form)
+        {
+            return RedirectToAction("Index", "Notice");
+        }
+
+        public async Task<ActionResult> Delete(int id)
+        {
+            await _proxy.DeleteNotice(id);
+
+            return RedirectToAction("Index", "Notice");
+        }
+
+        public async Task<ActionResult> Edit(int id)
+        {
+            
         }
 
         private readonly IEnumerable<SelectListItem> _buildings = new []
@@ -69,6 +83,8 @@ namespace MeldingAppX.Mvc.Controllers
             new SelectListItem{Text = "Diefstal", Value = "4"},
             new SelectListItem{Text = "Overig", Value = "5"}
         };
+
+        private NoticeProxy _proxy = new NoticeProxy();
 
     }
 }
