@@ -127,7 +127,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -156,6 +158,10 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MeldingAppX.Access\MeldingAppX.Access.csproj">
+      <Project>{3f50b826-10e8-4616-a6ef-4c4072b1ecfb}</Project>
+      <Name>MeldingAppX.Access</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MeldingAppX.Models\MeldingAppX.Models.csproj">
       <Project>{312f95c9-711c-4add-aa6d-f091b757ccb3}</Project>
       <Name>MeldingAppX.Models</Name>

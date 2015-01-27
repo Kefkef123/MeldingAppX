@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Headers;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using MeldingAppX.Models;
+using MeldingAppX.Access;
 using MeldingAppX.Mvc.Models;
 
 namespace MeldingAppX.Mvc.Controllers
@@ -13,22 +10,11 @@ namespace MeldingAppX.Mvc.Controllers
     {
         public async Task<ActionResult> Index()
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("http://localhost:1101");
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            var proxy = new NoticeProxy();
 
-                var response = await client.GetAsync("api/Notice/");
+            var notices = await proxy.GetNotice();
 
-                if (response.IsSuccessStatusCode)
-                {
-                    var notices = await response.Content.ReadAsAsync<IEnumerable<Notice>>();
-                    return View(notices);
-                }
-            }
-
-            return View();
+            return View(notices);
         }
 
         public ActionResult Create()

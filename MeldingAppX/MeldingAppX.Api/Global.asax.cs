@@ -1,7 +1,6 @@
 ﻿using System.Web.Http;
-using MeldingAppX.Api;
 
-namespace MeldingAppX
+namespace MeldingAppX.Api
 {
     public class WebApiApplication : System.Web.HttpApplication
     {
