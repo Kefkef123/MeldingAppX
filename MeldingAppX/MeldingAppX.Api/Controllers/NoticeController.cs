@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Net;
-using MeldingAppX.Api.Models;
+using MeldingAppX.Models;
 using System.Threading.Tasks;
 using System.Web.Http;
 

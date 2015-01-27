@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeldingAppX.Api", "MeldingAppX\MeldingAppX.Api.csproj", "{DDD42CF6-F3DD-4A4B-BAB5-D0B564F5B168}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeldingAppX.Mvc", "MeldingAppX.Mvc\MeldingAppX.Mvc.csproj", "{DB41A2FE-5B57-4214-8EE6-943FFAB7C9C3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeldingAppX.Access", "MeldingAppX.Access\MeldingAppX.Access.csproj", "{3F50B826-10E8-4616-A6EF-4C4072B1ECFB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeldingAppX.Models", "MeldingAppX.Models\MeldingAppX.Models.csproj", "{312F95C9-711C-4ADD-AA6D-F091B757CCB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeldingAppX.Api", "MeldingAppX.Api\MeldingAppX.Api.csproj", "{DDD42CF6-F3DD-4A4B-BAB5-D0B564F5B168}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DDD42CF6-F3DD-4A4B-BAB5-D0B564F5B168}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DDD42CF6-F3DD-4A4B-BAB5-D0B564F5B168}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DDD42CF6-F3DD-4A4B-BAB5-D0B564F5B168}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DDD42CF6-F3DD-4A4B-BAB5-D0B564F5B168}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DB41A2FE-5B57-4214-8EE6-943FFAB7C9C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DB41A2FE-5B57-4214-8EE6-943FFAB7C9C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB41A2FE-5B57-4214-8EE6-943FFAB7C9C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{312F95C9-711C-4ADD-AA6D-F091B757CCB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{312F95C9-711C-4ADD-AA6D-F091B757CCB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{312F95C9-711C-4ADD-AA6D-F091B757CCB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDD42CF6-F3DD-4A4B-BAB5-D0B564F5B168}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDD42CF6-F3DD-4A4B-BAB5-D0B564F5B168}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDD42CF6-F3DD-4A4B-BAB5-D0B564F5B168}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDD42CF6-F3DD-4A4B-BAB5-D0B564F5B168}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

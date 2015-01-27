@@ -1,5 +1,5 @@
 ﻿using System.Data.Entity;
-using MeldingAppX.Api.Models;
+using MeldingAppX.Models;
 
 namespace MeldingAppX.Api
 {
