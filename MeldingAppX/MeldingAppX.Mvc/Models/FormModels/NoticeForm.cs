@@ -5,6 +5,7 @@ namespace MeldingAppX.Mvc.Models
 {
     public class NoticeForm
     {
+        public int Id { get; set; }
         public string Building { get; set; }
         public IEnumerable<SelectListItem> Buildings { get; set; }
         public string Category { get; set; }
