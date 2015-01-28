@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using MeldingAppX.Access;
+using MeldingAppX.Models;
 using MeldingAppX.Mvc.Models;
 
 namespace MeldingAppX.Mvc.Controllers
@@ -27,7 +29,27 @@ namespace MeldingAppX.Mvc.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(NoticeForm form)
         {
+            if (ModelState.IsValid)
+            {
+                var notice = new Notice
+                {
+                    AdditionalLocation = form.AdditionalLocation,
+                    Building = Int32.Parse(form.Building),
+                    Category = Int32.Parse(form.Category),
+                    Comment = form.Comment,
+                    PhoneNumber = form.PhoneNumber,
+                    ReporterName = form.ReporterName
+                };
+
+                await _proxy.PostNotice(notice);
+
             return RedirectToAction("Index", "Notice");
+        }
+
+            form.Buildings = _buildings;
+            form.Categories = _categories;
+
+            return View(form);
         }
 
         public async Task<ActionResult> Delete(int id)
