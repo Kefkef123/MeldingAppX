@@ -1,16 +1,16 @@
 ﻿@model MeldingAppX.Mvc.Models.NoticeForm
 
 @{
-    ViewBag.Title = "Nieuwe melding aanmaken";
+    ViewBag.Title = "Melding aanpassen";
 }
 
 <h2>@ViewBag.Title</h2>
 
-@using (Html.BeginForm("Create", "Notice", FormMethod.Post)) 
+@using (Html.BeginForm("Edit", "Notice", FormMethod.Post))
 {
     <div>
         @Html.ValidationSummary(true)
-
+        @Html.HiddenFor(m => m.Id)
         <div>
             @Html.LabelFor(m => m.Building)
             <div>
@@ -58,6 +58,6 @@
                 @Html.ValidationMessageFor(m => m.Comment)
             </div>
         </div>
-        <input type="submit" value="Create" />
+        <input type="submit" value="Aanpassen" />
     </div>
 }

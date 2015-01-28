@@ -6,11 +6,30 @@
 
 <h2>Index</h2>
 
-<ul>
-    @foreach (var notice in Model)
-    {
-        <li>
-            @notice.ReporterName, @notice.Comment
-        </li>
-    }
-</ul>
+<table>
+    <thead>
+    <tr>
+        <th>Waar?</th>
+        <th>Aanvullende locatie</th>
+        <th>Wat?</th>
+        <th>Notitie</th>
+        <th>Door wie?</th>
+        <th>Acties</th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var notice in Model)
+        {
+            <tr>
+                <td>@notice.Building</td>
+                <td>@notice.AdditionalLocation</td>
+                <td>@notice.Category</td>
+                <td>@notice.Comment</td>
+                <td>@notice.ReporterName</td>
+                <th><a href="@Url.Action("Delete", "Notice", new {id = notice.Id})">D</a><a href="@Url.Action("Edit", "Notice", new{ id = notice.Id})">E</a></th>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@Html.ActionLink("Nieuwe melding aanmaken", "Create", "Notice")
