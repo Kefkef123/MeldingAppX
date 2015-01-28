@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using MeldingAppX.Models;
 using Newtonsoft.Json;
@@ -26,7 +27,12 @@ namespace MeldingAppX.Access
         {
             using (var client = new HttpClient())
             {
+                client.BaseAddress = new Uri("http://localhost:1101/");
+
+                var result = await client.GetAsync(String.Format("/api/Notice/{0}", id));
+                var json = await result.Content.ReadAsStringAsync();
                 
+                return JsonConvert.DeserializeObject<Notice>(json);
             }
         }
 
