@@ -31,7 +31,7 @@ namespace MeldingAppX.Access
 
                 var result = await client.GetAsync(String.Format("/api/Notice/{0}", id));
                 var json = await result.Content.ReadAsStringAsync();
-                
+
                 return JsonConvert.DeserializeObject<Notice>(json);
             }
         }
@@ -69,7 +69,7 @@ namespace MeldingAppX.Access
             {
                 client.BaseAddress = new Uri("http://localhost:1101/");
 
-                await client.PutAsJsonAsync(String.Format("api/Notice/{0}"), notice);
+                await client.PutAsJsonAsync(String.Format("api/Notice/{0}", id), notice);
             }
         }
     }
