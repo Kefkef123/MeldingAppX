@@ -43,8 +43,8 @@ namespace MeldingAppX.Mvc.Controllers
 
                 await _proxy.PostNotice(notice);
 
-            return RedirectToAction("Index", "Notice");
-        }
+                return RedirectToAction("Index", "Notice");
+            }
 
             form.Buildings = _buildings;
             form.Categories = _categories;
@@ -61,7 +61,50 @@ namespace MeldingAppX.Mvc.Controllers
 
         public async Task<ActionResult> Edit(int id)
         {
-            
+            var notice = await _proxy.GetNotice(id);
+
+            var form = new NoticeForm
+            {
+                Id = notice.Id,
+                AdditionalLocation = notice.AdditionalLocation,
+                Building = notice.Building.ToString(),
+                Buildings = _buildings,
+                Categories = _categories,
+                Category = notice.Category.ToString(),
+                Comment = notice.Comment,
+                PhoneNumber = notice.PhoneNumber,
+                ReporterName = notice.ReporterName
+            };
+
+            return View(form);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Edit(NoticeForm form)
+        {
+            if (ModelState.IsValid)
+            {
+                var notice = new Notice
+                {
+                    Id = form.Id,
+                    AdditionalLocation = form.AdditionalLocation,
+                    Building = Int32.Parse(form.Building),
+                    Category = Int32.Parse(form.Category),
+                    Comment = form.Comment,
+                    PhoneNumber = form.PhoneNumber,
+                    ReporterName = form.ReporterName
+                };
+
+
+                await _proxy.PutNotice(form.Id, notice);
+
+                return RedirectToAction("Index", "Notice");
+            }
+
+            form.Buildings = _buildings;
+            form.Categories = _categories;
+
+            return View(form);
         }
 
         private readonly IEnumerable<SelectListItem> _buildings = new []
