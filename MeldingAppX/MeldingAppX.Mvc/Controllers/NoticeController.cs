@@ -54,21 +54,25 @@ namespace MeldingAppX.Mvc.Controllers
 
                 if (IsImage(photo.ContentType))
                 {
-                    var stream = new MemoryStream();
-                    photo.InputStream.CopyTo(stream);
-                    var photoBytes = stream.ToArray();
-                    var base64Photo = Convert.ToBase64String(photoBytes);
-
-                    var jsonPhoto = new Photo
+                    // if photo is not lager than 2 MB
+                    if (photo.ContentLength < 2000000)
                     {
-                        ContentType = photo.ContentType,
-                        ContentLength = photo.ContentLength,
-                        EncodedFile = base64Photo,
-                        FileName = photo.FileName,
-                        Name = form.PhotoName
-                    };
+                        var stream = new MemoryStream();
+                        photo.InputStream.CopyTo(stream);
+                        var photoBytes = stream.ToArray();
+                        var base64Photo = Convert.ToBase64String(photoBytes);
 
-                    await _photoProxy.Post(jsonPhoto);
+                        var jsonPhoto = new Photo
+                        {
+                            ContentType = photo.ContentType,
+                            ContentLength = photo.ContentLength,
+                            EncodedFile = base64Photo,
+                            FileName = photo.FileName,
+                            Name = form.PhotoName
+                        };
+
+                        await _photoProxy.Post(jsonPhoto); 
+                    }
                 }
 
                 return RedirectToAction("Index", "Notice");
