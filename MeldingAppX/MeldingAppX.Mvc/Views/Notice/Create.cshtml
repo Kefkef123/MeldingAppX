@@ -6,7 +6,7 @@
 
 <h2>@ViewBag.Title</h2>
 
-@using (Html.BeginForm("Create", "Notice", FormMethod.Post)) 
+@using (Html.BeginForm("Create", "Notice", FormMethod.Post, new{ enctype = "multipart/form-data"})) 
 {
     <div>
         @Html.ValidationSummary(true)
@@ -56,6 +56,12 @@
             <div>
                 @Html.TextAreaFor(m => m.Comment)
                 @Html.ValidationMessageFor(m => m.Comment)
+            </div>
+        </div>
+        <div>
+            <label for="image">Foto uploaden:</label>
+            <div>
+                <input type="file" name="photo"/>
             </div>
         </div>
         <input type="submit" value="Create" />

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using MeldingAppX.Models;
 using Newtonsoft.Json;
@@ -11,11 +10,16 @@ namespace MeldingAppX.Access
 {
     public class NoticeProxy
     {
+        public NoticeProxy(string uri)
+        {
+            _uri = new Uri(uri);
+        }
+
         public async Task<IEnumerable<Notice>> GetNotice()
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:1101/");
+                client.BaseAddress = _uri;
 
                 var result = await client.GetAsync("/api/Notice");
                 var json = await result.Content.ReadAsStringAsync();
@@ -27,7 +31,7 @@ namespace MeldingAppX.Access
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:1101/");
+                client.BaseAddress = _uri;
 
                 var result = await client.GetAsync(String.Format("/api/Notice/{0}", id));
                 var json = await result.Content.ReadAsStringAsync();
@@ -40,7 +44,7 @@ namespace MeldingAppX.Access
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:1101/");
+                client.BaseAddress = _uri;
 
                 var result = await client.PostAsJsonAsync("/api/Notice", notice);
                 var json = await result.Content.ReadAsStringAsync();
@@ -54,7 +58,7 @@ namespace MeldingAppX.Access
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:1101/");
+                client.BaseAddress = _uri;
 
                 var result = await client.DeleteAsync(String.Format("/api/Notice/{0}", id));
                 var json = await result.Content.ReadAsStringAsync();
@@ -67,10 +71,12 @@ namespace MeldingAppX.Access
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:1101/");
+                client.BaseAddress = _uri;
 
                 await client.PutAsJsonAsync(String.Format("api/Notice/{0}", id), notice);
             }
         }
+
+        private readonly Uri _uri;
     }
 }

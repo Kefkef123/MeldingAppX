@@ -6,5 +6,6 @@ namespace MeldingAppX.Api
     public class MeldingAppContext : DbContext
     {
         public DbSet<Notice> Notices { get; set; }
+        public DbSet<PhotoEntity> Photos { get; set; }
     }
 }

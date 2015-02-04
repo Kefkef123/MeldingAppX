@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using MeldingAppX.Access;
 using MeldingAppX.Models;
@@ -10,6 +13,12 @@ namespace MeldingAppX.Mvc.Controllers
 {
     public class NoticeController : Controller
     {
+        public NoticeController()
+        {
+            _proxy = new NoticeProxy("http://localhost:1101");
+            _photoProxy = new PhotoProxy("http://localhost:1101");
+        }
+
         public async Task<ActionResult> Index()
         {
             return View(await _proxy.GetNotice());
@@ -27,7 +36,7 @@ namespace MeldingAppX.Mvc.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(NoticeForm form)
+        public async Task<ActionResult> Create(NoticeForm form, HttpPostedFileBase photo)
         {
             if (ModelState.IsValid)
             {
@@ -42,6 +51,25 @@ namespace MeldingAppX.Mvc.Controllers
                 };
 
                 await _proxy.PostNotice(notice);
+
+                if (IsImage(photo.ContentType))
+                {
+                    var stream = new MemoryStream();
+                    photo.InputStream.CopyTo(stream);
+                    var photoBytes = stream.ToArray();
+                    var base64Photo = Convert.ToBase64String(photoBytes);
+
+                    var jsonPhoto = new Photo
+                    {
+                        ContentType = photo.ContentType,
+                        ContentLength = photo.ContentLength,
+                        EncodedFile = base64Photo,
+                        FileName = photo.FileName,
+                        Name = form.PhotoName
+                    };
+
+                    await _photoProxy.Post(jsonPhoto);
+                }
 
                 return RedirectToAction("Index", "Notice");
             }
@@ -134,10 +162,7 @@ namespace MeldingAppX.Mvc.Controllers
             new SelectListItem{Text = "Sporthal", Value = "22"},
             new SelectListItem{Text = "Tennisvereniging D.L.T.C", Value = "23"},
             new SelectListItem{Text = "Bogermanschool", Value = "24"},
-            new SelectListItem{Text = "Wartburg College", Value = "25"},
-            new SelectListItem{Text = "Villa Volta", Value = "26"},
-            new SelectListItem{Text = "Eljakim", Value = "27"},
-            new SelectListItem{Text = "Jubal", Value = "28"},
+            new SelectListItem{Text = "Wartburg College", Value = "25"}
         };
 
         private readonly IEnumerable<SelectListItem> _categories = new[]
@@ -149,7 +174,13 @@ namespace MeldingAppX.Mvc.Controllers
             new SelectListItem{Text = "Overig", Value = "5"}
         };
 
-        private NoticeProxy _proxy = new NoticeProxy();
+        private NoticeProxy _proxy;
+        private PhotoProxy _photoProxy;
 
+        private bool IsImage(string contentType)
+        {
+            string[] allowedMime = {"image"};
+            return allowedMime.Any(contentType.Contains);
+        }
     }
 }

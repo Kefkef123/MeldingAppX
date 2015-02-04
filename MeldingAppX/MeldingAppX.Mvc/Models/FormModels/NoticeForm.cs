@@ -14,5 +14,6 @@ namespace MeldingAppX.Mvc.Models
         public string ReporterName { get; set; }
         public string PhoneNumber { get; set; }
         public string Comment { get; set; }
+        public string PhotoName { get; set; }
     }
 }
